@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Project WhoAmI",
+  "version": "1.0",
+  "description": "チャット入力欄にメンバー識別用のボタンを追加します",
+  "permissions": [
+    "storage"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/*",
+        "https://chatgpt.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
