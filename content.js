@@ -32,13 +32,28 @@ function createButtons(inputArea, members) {
   // 二重追加防止チェック（念のため）
   if (inputArea.parentElement.querySelector('.whoami-buttons-container')) return;
 
+  // サイト判定: ChatGPTかどうか
+  const isChatGPT = location.hostname.includes('chatgpt.com');
+  
+  // ボタンコンテナを作成
   const container = document.createElement('div');
   container.className = 'whoami-buttons-container';
-  container.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px; padding: 0 10px; flex-wrap: wrap;';
+  
+  // ChatGPTの時だけ上部にマージンを適用する
+  container.style.cssText = `
+    display: flex; 
+    gap: 8px; 
+    ${isChatGPT ? 'margin-top: 16px;' : ''}
+    margin-bottom: 8px;
+    padding: 0 10px; 
+    flex-wrap: wrap;
+  `;
 
   members.forEach(member => {
     const btn = document.createElement('button');
     btn.textContent = member.label;
+    
+    // スタイル適用
     btn.style.cssText = `
       padding: 6px 12px;
       border-radius: 16px;
@@ -49,8 +64,9 @@ function createButtons(inputArea, members) {
       color: #333;
       transition: all 0.2s;
       font-weight: 500;
+      white-space: nowrap; /* ボタン内の改行防止 */
     `;
-    
+
     // マウスホバー時のエフェクト
     btn.onmouseover = () => btn.style.background = '#f0f0f0';
     btn.onmouseout = () => btn.style.background = '#ffffff';
